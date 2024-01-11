@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "chat-search"
+version = "0.1.0"
+description = ""
+authors = ["Hemslo Wang <hemslo.wang@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "app" },
+]
+
+[tool.poetry.dependencies]
+langchain-openai = "^0.0.2"
+langserve = {extras = ["server"], version = ">=0.0.39"}
+openai = "^1.7.1"
+pydantic = "<2"
+python = "^3.11"
+python-dotenv = "^1.0.0"
+uvicorn = "^0.23.2"
+
+
+[tool.poetry.group.dev.dependencies]
+langchain-cli = ">=0.0.15"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
