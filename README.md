@@ -1,5 +1,7 @@
 # chat-search
 
+![CICD](https://github.com/hemslo/chat-search/actions/workflows/cicd.yml/badge.svg)
+
 ## Installation
 
 ```bash
