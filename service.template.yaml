@@ -9,3 +9,9 @@ spec:
       - image: ${IMAGE}
         ports:
         - containerPort: 8000
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: ${OPENAI_API_KEY_SECRET_VERSION}
+              name: ${OPENAI_API_KEY_SECRET_NAME}

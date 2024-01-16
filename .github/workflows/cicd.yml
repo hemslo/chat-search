@@ -10,6 +10,8 @@ env:
   GCLOUD_REGISTRY: us-west1-docker.pkg.dev
   GCLOUD_SERVICE: chat-search
   GITHUB_REGISTRY: ghcr.io
+  OPENAI_API_KEY_SECRET_NAME: OPENAI_API_KEY
+  OPENAI_API_KEY_SECRET_VERSION: latest
 
 jobs:
   build:
