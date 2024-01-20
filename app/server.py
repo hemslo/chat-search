@@ -18,7 +18,6 @@ add_routes(
     path="/openai",
 )
 
-
 if __name__ == "__main__":
     import uvicorn
 
