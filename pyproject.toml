@@ -16,6 +16,9 @@ pydantic = "<2"
 python = "^3.11"
 python-dotenv = "^1.0.0"
 uvicorn = "^0.23.2"
+langchain-community = "^0.0.13"
+lxml = "^5.1.0"
+beautifulsoup4 = "^4.12.3"
 
 
 [tool.poetry.group.dev.dependencies]
