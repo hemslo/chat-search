@@ -19,6 +19,9 @@ uvicorn = "^0.23.2"
 langchain-community = "^0.0.13"
 lxml = "^5.1.0"
 beautifulsoup4 = "^4.12.3"
+redis = "^5.0.1"
+redisvl = "^0.0.7"
+tiktoken = "^0.5.2"
 
 
 [tool.poetry.group.dev.dependencies]

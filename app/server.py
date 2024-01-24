@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from langchain_openai import ChatOpenAI
 from langserve import add_routes
 
+from app.routers import ingest
+
 load_dotenv()
 
 app = FastAPI(
@@ -17,6 +19,9 @@ add_routes(
     ChatOpenAI(),
     path="/openai",
 )
+
+app.include_router(ingest.router)
+
 
 if __name__ == "__main__":
     import uvicorn

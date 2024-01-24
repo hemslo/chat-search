@@ -34,10 +34,7 @@ def main():
         help="The URL of the sitemap to crawl.",
     )
     args = parser.parse_args()
-    if args.sitemap_url:
-        crawl(args.sitemap_url)
-    else:
-        parser.print_help()
+    crawl(args.sitemap_url)
 
 
 if __name__ == "__main__":
