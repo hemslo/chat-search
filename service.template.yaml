@@ -15,3 +15,8 @@ spec:
             secretKeyRef:
               key: ${OPENAI_API_KEY_SECRET_VERSION}
               name: ${OPENAI_API_KEY_SECRET_NAME}
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              key: ${REDIS_URL_SECRET_VERSION}
+              name: ${REDIS_URL_SECRET_NAME}
