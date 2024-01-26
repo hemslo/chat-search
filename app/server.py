@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from langchain_openai import ChatOpenAI
 from langserve import add_routes
 
+from app.dependencies import verify_auth_token
 from app.routers import ingest
 
 load_dotenv()
@@ -20,7 +21,10 @@ add_routes(
     path="/openai",
 )
 
-app.include_router(ingest.router)
+app.include_router(
+    ingest.router,
+    dependencies=[Depends(verify_auth_token)],
+)
 
 
 if __name__ == "__main__":
