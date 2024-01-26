@@ -5,6 +5,14 @@ from urllib.parse import urlparse, urlunparse
 from langchain_core.documents import Document
 from pydantic import Field
 
+DOC_FIELDS = [
+    "source",
+    "title",
+    "description",
+    "language",
+    "content",
+]
+
 
 class WebDocumentMetadata(TypedDict):
     source: str
