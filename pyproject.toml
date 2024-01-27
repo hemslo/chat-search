@@ -9,24 +9,22 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-langchain-openai = "^0.0.2"
+langchain-openai = "^0.0.5"
 langserve = {extras = ["server"], version = ">=0.0.39"}
-openai = "^1.7.1"
 pydantic = "<2"
 python = "^3.11"
 python-dotenv = "^1.0.0"
 uvicorn = "^0.23.2"
-langchain-community = "^0.0.13"
+langchain-community = "^0.0.16"
 lxml = "^5.1.0"
 beautifulsoup4 = "^4.12.3"
 redis = "^5.0.1"
-redisvl = "^0.0.7"
-tiktoken = "^0.5.2"
 
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = ">=0.0.15"
 ruff = "^0.1.14"
+redisvl = "^0.0.7"
 
 [build-system]
 requires = ["poetry-core"]
