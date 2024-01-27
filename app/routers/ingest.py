@@ -7,8 +7,9 @@ from langchain_openai import OpenAIEmbeddings
 
 from ..models.web_document import WebDocument, DOC_FIELDS
 
-embeddings = OpenAIEmbeddings()
-
+embeddings = OpenAIEmbeddings(
+    model=os.environ.get("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
+)
 
 router = APIRouter()
 
