@@ -22,6 +22,8 @@ rds = Redis(
     index_schema=index_schema,
 )
 
+rds._create_index_if_not_exist()
+
 
 @router.post("/ingest", description="Ingest a document", status_code=201)
 def ingest_doc(doc: WebDocument, response: Response) -> str:
