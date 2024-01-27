@@ -1,0 +1,26 @@
+name: crawl
+on:
+  workflow_dispatch:
+    inputs:
+      sitemap-url:
+        description: 'Sitemap URL'
+        required: true
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+      env:
+        AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        INGEST_URL: ${{ secrets.INGEST_URL }}
+    defaults:
+      run:
+        working-directory: /code
+        shell: bash
+    steps:
+    - name: crawl
+      run: python -m app.client.crawl --sitemap-url ${{ github.event.inputs.sitemap-url }}
