@@ -1,18 +1,15 @@
 #!/usr/bin/env python
-from dotenv import load_dotenv
 from fastapi import FastAPI, Depends
 from langchain_openai import ChatOpenAI
 from langserve import add_routes
 
-from app.dependencies import verify_auth_token
+from app.dependencies.auth_token import verify_auth_token
 from app.routers import ingest
 
-load_dotenv()
-
 app = FastAPI(
-    title="LangChain Server",
+    title="Chat Search",
     version="1.0",
-    description="A simple api server using Langchain's Runnable interfaces",
+    description="Chat Search for documents",
 )
 
 add_routes(

@@ -3,7 +3,7 @@ from typing import TypedDict
 from urllib.parse import urlparse, urlunparse
 
 from langchain_core.documents import Document
-from pydantic import Field
+from pydantic import Field, validator
 
 DOC_FIELDS = [
     "source",
@@ -25,11 +25,15 @@ class WebDocument(Document):
     metadata: WebDocumentMetadata = Field(default_factory=WebDocumentMetadata)
 
     def source_id(self):
-        source = self.normalize_url(self.metadata["source"])
-        return hashlib.sha256(source.encode()).hexdigest()
+        return hashlib.sha256(self.metadata["source"].encode()).hexdigest()
+
+    @validator("metadata", pre=True)
+    def validate_metadata(cls, metadata):
+        metadata["source"] = cls._normalize_url(metadata["source"])
+        return metadata
 
     @staticmethod
-    def normalize_url(url) -> str:
+    def _normalize_url(url) -> str:
         parsed_url = urlparse(url)
         return urlunparse(
             (
