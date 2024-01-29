@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from fastapi import FastAPI, Depends
-from langchain_openai import ChatOpenAI
 from langserve import add_routes
 
+from app.chains.chat import chat_chain
 from app.dependencies.auth_token import verify_auth_token
 from app.routers import ingest
 
@@ -14,8 +14,8 @@ app = FastAPI(
 
 add_routes(
     app,
-    ChatOpenAI(),
-    path="/openai",
+    chat_chain,
+    path="/chat",
 )
 
 app.include_router(

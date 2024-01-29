@@ -9,6 +9,8 @@ OPENAI_EMBEDDING_MODEL = os.environ.get(
     "OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"
 )
 
+OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-3.5-turbo-1106")
+
 INDEX_SCHEMA_PATH = Path(os.path.dirname(__file__)) / "schema.yaml"
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/")
