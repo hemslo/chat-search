@@ -29,12 +29,8 @@ text:
   weight: 1.0
   withsuffixtrie: false
 vector:
-- algorithm: HNSW
+- algorithm: FLAT
   datatype: FLOAT32
   dims: 1536
   distance_metric: COSINE
-  ef_construction: 200
-  ef_runtime: 10
-  epsilon: 0.01
-  m: 16
   name: content_vector

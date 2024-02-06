@@ -1,4 +1,5 @@
-version: '3.8'
+include:
+- docker-compose.redis.yaml
 services:
   app:
     build: .
@@ -8,15 +9,5 @@ services:
       REDIS_URL: redis://redis:6379/
     ports:
       - "8000:8000"
-  redis:
-    image: redis/redis-stack:6.2.6-v11
-    ports:
-      - "6379:6379"
-      - "8001:8001"
-    environment:
-      REDIS_ARGS: --save 60 1000 --appendonly yes
-    volumes:
-      - redis-data:/data
-
-volumes:
-    redis-data:
+    depends_on:
+    - redis

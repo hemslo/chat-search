@@ -7,20 +7,23 @@ from langchain_core.prompts import ChatPromptTemplate, format_document
 from langchain_core.runnables import (
     RunnableParallel,
 )
-from langchain_openai import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langserve import CustomUserType
 from pydantic import Field
 
-from app import config
+from app.dependencies.llm import get_llm
 from app.dependencies.redis import get_redis
 
-llm = ChatOpenAI(
-    model=config.OPENAI_CHAT_MODEL,
-    temperature=0,
-)
+llm = get_llm()
 
-retriever = get_redis().as_retriever(search_type="mmr")
+retriever = get_redis().as_retriever(
+    search_type="mmr",
+    search_kwargs={
+        "fetch_k": 20,
+        "k": 3,
+        "lambda_mult": 0.5,
+    },
+)
 
 
 REPHRASE_TEMPLATE = """\
