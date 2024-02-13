@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-from fastapi import FastAPI, Depends
+from fastapi import Depends
+from fastapi import FastAPI, Request, status
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from langserve import add_routes
 
 from app.chains.chat import chat_chain
@@ -22,6 +26,14 @@ app.include_router(
     ingest.router,
     dependencies=[Depends(verify_auth_token)],
 )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        content=jsonable_encoder({"detail": exc.errors(), "body": exc.body}),
+    )
 
 
 if __name__ == "__main__":
