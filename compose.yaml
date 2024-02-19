@@ -1,5 +1,5 @@
 include:
-- docker-compose.redis.yaml
+- compose.redis.yaml
 services:
   app:
     build: .

@@ -9,16 +9,17 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
+beautifulsoup4 = "^4.12.3"
+langchain-community = "^0.0.19"
 langchain-openai = "^0.0.5"
 langserve = {extras = ["server"], version = ">=0.0.39"}
+lxml = "^5.1.0"
 pydantic = "<2"
 python = "^3.11"
 python-dotenv = "^1.0.0"
-uvicorn = "^0.23.2"
-langchain-community = "^0.0.19"
-lxml = "^5.1.0"
-beautifulsoup4 = "^4.12.3"
 redis = "^5.0.1"
+tqdm = "^4.66.2"
+uvicorn = "^0.23.2"
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = ">=0.0.15"

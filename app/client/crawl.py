@@ -12,6 +12,7 @@ from langchain_community.document_loaders import (
 )
 from langchain_community.document_loaders.base import BaseLoader
 from langchain_core.documents import Document
+from tqdm.asyncio import tqdm_asyncio
 
 from app.models.web_document import WebDocumentMetadata
 
@@ -75,6 +76,17 @@ async def ingest_doc(
         return doc.metadata["source"], response.ok
 
 
+async def ingest_doc_with_concurrency(
+    doc: Document,
+    ingest_url: str,
+    session: ClientSession,
+    headers: dict[str, str],
+    semaphore: asyncio.Semaphore,
+) -> tuple[str, bool]:
+    async with semaphore:
+        return await ingest_doc(doc, ingest_url, session, headers)
+
+
 async def ingest(
     docs: list[Document],
     ingest_url: str,
@@ -82,10 +94,19 @@ async def ingest(
     auth_token: str,
 ) -> dict[str, bool]:
     headers = {"Authorization": f"Bearer {auth_token}"}
+    semaphore = asyncio.Semaphore(ingest_concurrency)
     connector = TCPConnector(limit=ingest_concurrency)
     async with ClientSession(connector=connector) as session:
-        results = await asyncio.gather(
-            *(ingest_doc(doc, ingest_url, session, headers) for doc in docs),
+        tasks = [
+            asyncio.ensure_future(
+                ingest_doc_with_concurrency(
+                    doc, ingest_url, session, headers, semaphore
+                )
+            )
+            for doc in docs
+        ]
+        results = await tqdm_asyncio.gather(
+            *tasks, desc="Ingesting", ascii=True, mininterval=1
         )
         return dict(results)
 
