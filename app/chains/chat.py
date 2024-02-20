@@ -18,26 +18,9 @@ from langchain_core.prompts import (
 from langchain.prompts.prompt import PromptTemplate
 from pydantic import Field, BaseModel
 
+from app import config
 from app.dependencies.llm import get_llm
 from app.dependencies.redis import get_redis
-
-RETRIEVAL_QA_CHAT_SYSTEM_PROMPT = """\
-Answer any questions based solely on the context below:
-
-<context>
-{context}
-</context>
-"""
-
-REPHRASE_PROMPT = """\
-Given the following conversation and a follow up question, \
-rephrase the follow up question to be a standalone question.
-
-Chat History:
-{chat_history}
-Follow Up Input: {input}
-Standalone Question:
-"""
 
 
 def build_chat_chain():
@@ -52,7 +35,7 @@ def build_chat_chain():
         },
     )
 
-    rephrase_prompt = PromptTemplate.from_template(REPHRASE_PROMPT)
+    rephrase_prompt = PromptTemplate.from_template(config.REPHRASE_PROMPT)
 
     retriever_chain = create_history_aware_retriever(
         llm,
@@ -64,7 +47,7 @@ def build_chat_chain():
         [
             (
                 "system",
-                RETRIEVAL_QA_CHAT_SYSTEM_PROMPT,
+                config.RETRIEVAL_QA_CHAT_SYSTEM_PROMPT,
             ),
             MessagesPlaceholder(variable_name="chat_history"),
             (
