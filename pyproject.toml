@@ -26,6 +26,9 @@ langchain-cli = ">=0.0.15"
 ruff = "^0.2.1"
 redisvl = "^0.0.7"
 
+[tool.poetry.scripts]
+crawl = "app.client.crawl:main"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
