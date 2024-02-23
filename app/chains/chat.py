@@ -27,12 +27,8 @@ def build_chat_chain():
     llm = get_llm()
 
     retriever = get_redis().as_retriever(
-        search_type="mmr",
-        search_kwargs={
-            "fetch_k": 20,
-            "k": 3,
-            "lambda_mult": 0.5,
-        },
+        search_type=config.RETRIEVER_SEARCH_TYPE,
+        search_kwargs=config.RETRIEVER_SEARCH_KWARGS,
     )
 
     rephrase_prompt = PromptTemplate.from_template(config.REPHRASE_PROMPT)

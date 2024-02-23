@@ -10,7 +10,7 @@ def _get_llm() -> BaseChatModel:
 
             return ChatOpenAI(
                 model=config.OPENAI_CHAT_MODEL,
-                temperature=0,
+                temperature=config.LLM_TEMPERATURE,
             )
         case "ollama":
             from langchain_community.chat_models import ChatOllama
@@ -18,6 +18,7 @@ def _get_llm() -> BaseChatModel:
             return ChatOllama(
                 model=config.OLLAMA_CHAT_MODEL,
                 base_url=config.OLLAMA_URL,
+                temperature=config.LLM_TEMPERATURE,
             )
         case _:
             raise ValueError(f"Unknown chat provider: {config.CHAT_PROVIDER}")

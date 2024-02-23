@@ -2,11 +2,10 @@ from typing import Annotated
 
 from fastapi import Depends
 
+from app import config
 from app.dependencies.redis import RedisDep
 from app.dependencies.text_splitter import TextSplitterDep
 from app.models.web_document import WebDocument
-
-DIGEST_PREFIX = "digest"
 
 
 class Repository:
@@ -15,7 +14,7 @@ class Repository:
         self.text_splitter = text_splitter
 
     def get_digest(self, source_id: str) -> str | None:
-        digest = self.redis.client.get(f"{DIGEST_PREFIX}:{source_id}")
+        digest = self.redis.client.get(f"{config.DIGEST_PREFIX}:{source_id}")
         return digest.decode() if digest else None
 
     def save(self, doc: WebDocument) -> None:
@@ -30,7 +29,7 @@ class Repository:
             ids=[f"{doc.source_id}:{idx}" for idx in range(len(docs))],
         )
         self.redis.client.set(
-            f"{DIGEST_PREFIX}:{doc.source_id}",
+            f"{config.DIGEST_PREFIX}:{doc.source_id}",
             doc.page_content_digest,
         )
 
