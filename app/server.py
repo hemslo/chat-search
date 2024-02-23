@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from fastapi.responses import RedirectResponse
 from langserve import add_routes
 
 from app.chains.chat import chat_chain
@@ -26,6 +27,11 @@ app.include_router(
     ingest.router,
     dependencies=[Depends(verify_auth_token)],
 )
+
+
+@app.get("/")
+async def redirect_root_to_docs():
+    return RedirectResponse("/docs")
 
 
 @app.exception_handler(RequestValidationError)
