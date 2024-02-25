@@ -24,10 +24,10 @@ INDEX_SCHEMA_PATH = (
     else Path(os.path.dirname(__file__)) / "schema.yaml"
 )
 LLM_TEMPERATURE = float(os.environ.get("LLM_TEMPERATURE") or 0)
-OLLAMA_CHAT_MODEL = os.environ.get("OLLAMA_CHAT_MODEL") or "llama2"
-OLLAMA_EMBEDDING_MODEL = os.environ.get("OLLAMA_EMBEDDING_MODEL") or "llama2"
+OLLAMA_CHAT_MODEL = os.environ.get("OLLAMA_CHAT_MODEL") or "gemma"
+OLLAMA_EMBEDDING_MODEL = os.environ.get("OLLAMA_EMBEDDING_MODEL") or "nomic-embed-text"
 OLLAMA_URL = os.environ.get("OLLAMA_URL") or "http://localhost:11434"
-OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL") or "gpt-3.5-turbo-0125"
+OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL") or "gpt-3.5-turbo"
 OPENAI_EMBEDDING_MODEL = (
     os.environ.get("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-small"
 )

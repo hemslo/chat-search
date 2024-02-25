@@ -2,7 +2,7 @@
 
 ![CICD](https://github.com/hemslo/chat-search/actions/workflows/cicd.yml/badge.svg)
 
-Chat with custom data, search via natural language.
+Chat with documents, search via natural language.
 
 Demo: Chat about my blog, https://chat-search.hemslo.io/chat/playground
 
@@ -25,13 +25,13 @@ Populate `.env` file with the required environment variables.
 | EMBEDDING_DIM                   | embedding dimensions                      | `1536`                            |
 | EMBEDDING_PROVIDER              | embedding provider, `openai` or `ollama`  | `openai`                          |
 | INDEX_NAME                      | index name                                | `document`                        |
-| INDEX_SCHEMA_PATH               | index schema path                         | `` (will use `app/schema.yaml`)   |
+| INDEX_SCHEMA_PATH               | index schema path                         | (will use `app/schema.yaml`)      |
 | LLM_TEMPERATURE                 | temperature for LLM                       | `0`                               |
-| OLLAMA_CHAT_MODEL               | ollama chat model                         | `llama2`                          |
-| OLLAMA_EMBEDDING_MODEL          | ollama embedding model                    | `llama2`                          |
+| OLLAMA_CHAT_MODEL               | ollama chat model                         | `gemma`                           |
+| OLLAMA_EMBEDDING_MODEL          | ollama embedding model                    | `nomic-embed-text`                |
 | OLLAMA_URL                      | ollama url                                | `http://localhost:11434`          |
 | OPENAI_API_KEY                  | openai api key                            |                                   |
-| OPENAI_CHAT_MODEL               | openai chat model                         | `gpt-3.5-turbo-0125`              |
+| OPENAI_CHAT_MODEL               | openai chat model                         | `gpt-3.5-turbo`                   |
 | OPENAI_EMBEDDING_MODEL          | openai embedding model,                   | `text-embedding-3-small`          |
 | REDIS_URL                       | redis url                                 | `redis://localhost:6379/`         |
 | REPHRASE_PROMPT                 | prompt for rephrase                       | check [config.py](/app/config.py) |
@@ -41,6 +41,16 @@ Populate `.env` file with the required environment variables.
 | TEXT_SPLIT_CHUNK_OVERLAP        | chunk overlap for text split              | `200`                             |
 | TEXT_SPLIT_CHUNK_SIZE           | chunk size for text split                 | `4000`                            |
 | VERBOSE                         | enable verbose, `1` or `0`                | `0`                               |
+
+### Start Ollama (Optional)
+
+Follow [Ollama instructions](https://github.com/ollama/ollama)
+
+```shell
+ollama serve
+ollama pull gemma
+ollama pull nomic-embed-text
+```
 
 ### Run on host
 
@@ -60,13 +70,6 @@ Start redis
 docker compose -f compose.redis.yaml up
 ```
 
-(Optional) Start Ollama, follow [Ollama instructions](https://github.com/ollama/ollama)
-
-```shell
-ollama serve
-ollama pull llama2
-```
-
 #### Launch LangServe
 
 ```bash
@@ -76,15 +79,6 @@ langchain serve
 Visit http://localhost:8000/
 
 ### Run in Docker
-
-(Optional) Start Ollama, follow [Ollama instructions](https://github.com/ollama/ollama).
-
-```shell
-ollama serve
-ollama pull llama2
-```
-
-Start all
 
 ```shell
 docker compose up --build
