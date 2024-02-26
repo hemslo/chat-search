@@ -4,7 +4,7 @@
 
 Chat with documents, search via natural language.
 
-Demo: Chat about my blog, https://chat-search.hemslo.io/chat/playground
+Demo: [Chat about my blog](https://hemslo.io/chat/)
 
 ## Usage
 
@@ -96,6 +96,32 @@ Check [crawl.yml](.github/workflows/crawl.yml) for web crawling,
 
 Example auto ingest after Github Pages deploy,
 [jekyll.yml](https://github.com/hemslo/hemslo.github.io/blob/master/.github/workflows/jekyll.yml).
+
+## Architecture
+
+### Ingest
+
+```mermaid
+flowchart LR
+  A(Crawl) --> |doc| B(/ingest)
+  B --> |metadata| C(Redis)
+  B --> |doc| D(Text Splitter)
+  D --> |docs| E(Embedding Model)
+  E --> |docs with embeddings| F(Redis)
+```
+
+### Query
+
+```mermaid
+flowchart LR
+  A((Request)) --> |messages| B(/chat)
+  B --> |messages| C(LLM)
+  C --> |question| D(Embedding Model)
+  D --> |embeddings| E(Redis)
+  E --> |relevant docs| F(LLM)
+  B --> |messages|F
+  F --> |answer| G((Response))
+```
 
 ## Deployment
 
