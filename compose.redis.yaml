@@ -8,5 +8,12 @@ services:
       REDIS_ARGS: --save 60 1000 --appendonly yes
     volumes:
       - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+      start_interval: 5s
 volumes:
   redis-data:

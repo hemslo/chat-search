@@ -10,4 +10,5 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-    - redis
+      redis:
+        condition: service_healthy
