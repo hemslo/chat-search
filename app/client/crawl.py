@@ -2,7 +2,9 @@
 import argparse
 import asyncio
 import os
+from collections.abc import Iterable
 from pprint import pprint
+from typing import Any
 
 from aiohttp import TCPConnector, ClientSession
 from bs4 import BeautifulSoup
@@ -11,51 +13,26 @@ from langchain_community.document_loaders import (
     RecursiveUrlLoader,
 )
 from langchain_community.document_loaders.base import BaseLoader
-from langchain_core.documents import Document
 from tqdm.asyncio import tqdm_asyncio
 
-from app.models.web_document import WebDocumentMetadata
+from app.models.base_document import BaseDocumentMetadata
+from app.models.html_document_request import HTMLDocumentRequest
 
 
-def _get_title(soup: BeautifulSoup) -> str:
-    if title := soup.find("title"):
-        return title.get_text()
-    return ""
-
-
-def _get_description(soup: BeautifulSoup) -> str:
-    if description := soup.find("meta", attrs={"name": "description"}):
-        return str(description.get("content", ""))
-    return ""
-
-
-def _get_language(soup: BeautifulSoup) -> str:
-    if html := soup.find("html"):
-        return str(html.get("lang", ""))
-    return ""
-
-
-def meta_function(meta: dict, soup: BeautifulSoup) -> WebDocumentMetadata:
+def meta_function(meta: dict, _content: Any) -> BaseDocumentMetadata:
     return {
         "source": meta["loc"],
-        "title": _get_title(soup),
-        "description": _get_description(soup),
-        "language": _get_language(soup),
     }
 
 
-def metadata_extractor(raw_html: str, url: str) -> WebDocumentMetadata:
-    soup = BeautifulSoup(raw_html, "lxml")
+def metadata_extractor(_raw_html: str, url: str) -> BaseDocumentMetadata:
     return {
         "source": url,
-        "title": _get_title(soup),
-        "description": _get_description(soup),
-        "language": _get_language(soup),
     }
 
 
-def parsing_function(soup: BeautifulSoup) -> str:
-    return soup.get_text(separator="\n\n", strip=True)
+def parsing_function(content: BeautifulSoup) -> str:
+    return str(content)
 
 
 def extractor(content: str) -> str:
@@ -63,7 +40,7 @@ def extractor(content: str) -> str:
 
 
 async def ingest_doc(
-    doc: Document,
+    doc: HTMLDocumentRequest,
     ingest_url: str,
     session: ClientSession,
     headers: dict[str, str],
@@ -77,7 +54,7 @@ async def ingest_doc(
 
 
 async def ingest_doc_with_concurrency(
-    doc: Document,
+    doc: HTMLDocumentRequest,
     ingest_url: str,
     session: ClientSession,
     headers: dict[str, str],
@@ -88,7 +65,7 @@ async def ingest_doc_with_concurrency(
 
 
 async def ingest(
-    docs: list[Document],
+    docs: Iterable[HTMLDocumentRequest],
     ingest_url: str,
     ingest_concurrency: int,
     auth_token: str,
@@ -154,7 +131,13 @@ def crawl(
         exclude_urls=exclude_urls,
         crawl_concurrency=crawl_concurrency,
     )
-    docs = loader.load()
+    docs = (
+        HTMLDocumentRequest(
+            page_content=doc.page_content,
+            metadata=doc.metadata,
+        )
+        for doc in loader.load()
+    )
 
     result = asyncio.run(ingest(docs, ingest_url, ingest_concurrency, auth_token))
 

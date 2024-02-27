@@ -7,19 +7,16 @@ from langchain_core.documents import Document
 from pydantic import Field, validator
 
 
-class WebDocumentMetadata(TypedDict):
-    source: str
-    title: str
-    description: str
-    language: str
-
-
 def sha256(content: str) -> str:
     return hashlib.sha256(content.encode()).hexdigest()
 
 
-class WebDocument(Document):
-    metadata: WebDocumentMetadata = Field(default_factory=WebDocumentMetadata)
+class BaseDocumentMetadata(TypedDict):
+    source: str
+
+
+class BaseDocument(Document):
+    metadata: BaseDocumentMetadata = Field(default_factory=BaseDocumentMetadata)
 
     @cached_property
     def source_id(self):
