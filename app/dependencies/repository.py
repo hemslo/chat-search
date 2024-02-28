@@ -35,6 +35,13 @@ class Repository:
             doc.page_content_digest,
         )
 
+    def reset(self) -> None:
+        self.redis.client.ft(self.redis.index_name).dropindex(True)
+        digest_keys = self.redis.client.keys(f"{config.DIGEST_PREFIX}:*")
+        if digest_keys:
+            self.redis.client.delete(*digest_keys)
+        self.redis._create_index_if_not_exist(config.EMBEDDING_DIM)
+
     def preprocess_doc(self, doc: HTMLDocumentRequest) -> list[DocumentModel]:
         return self.document_transformer.transform_documents([preprocess(doc)])
 

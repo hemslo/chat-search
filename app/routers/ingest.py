@@ -23,3 +23,12 @@ def ingest_doc(
             repository.save(doc)
             response.status_code = status.HTTP_200_OK
     return doc.source_id
+
+
+@router.post(
+    "/reset", description="Delete all documents and reset index", status_code=201
+)
+def destroy(
+    repository: RepositoryDep,
+) -> None:
+    repository.reset()
