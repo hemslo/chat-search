@@ -33,16 +33,11 @@ def _metadata_extractor(soup: BeautifulSoup, source: str) -> DocumentMetadataMod
     return {k: v for k, v in metadata.items() if v}
 
 
-def _page_content_extractor(soup: BeautifulSoup) -> str:
-    return soup.get_text(separator="\n\n", strip=True)
-
-
 def preprocess(doc: HTMLDocumentRequest) -> DocumentModel:
     soup = BeautifulSoup(doc.page_content, "lxml")
     metadata = _metadata_extractor(soup, doc.metadata["source"])
-    page_content = _page_content_extractor(soup)
 
     return DocumentModel(
         metadata=metadata,
-        page_content=page_content,
+        page_content=doc.page_content,
     )

@@ -42,6 +42,10 @@ RETRIEVER_SEARCH_KWARGS = (
         "lambda_mult": 0.5,
     }
 )
+HEADERS_TO_SPLIT_ON = {
+    h.strip() for h in (os.environ.get("HEADERS_TO_SPLIT_ON") or "h1,h2,h3").split(",")
+} & {"h1", "h2", "h3", "h4", "h5", "h6"}
+
 TEXT_SPLIT_CHUNK_SIZE = int(os.environ.get("TEXT_SPLIT_CHUNK_SIZE") or 4000)
 TEXT_SPLIT_CHUNK_OVERLAP = int(os.environ.get("TEXT_SPLIT_CHUNK_OVERLAP") or 200)
 

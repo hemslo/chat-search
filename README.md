@@ -24,6 +24,7 @@ Populate `.env` file with the required environment variables.
 | DIGEST_PREFIX                   | prefix for digest in Redis                | `digest`                          |
 | EMBEDDING_DIM                   | embedding dimensions                      | `1536`                            |
 | EMBEDDING_PROVIDER              | embedding provider, `openai` or `ollama`  | `openai`                          |
+| HEADERS_TO_SPLIT_ON             | html headers to split text                | `h1,h2,h3`                        |
 | INDEX_NAME                      | index name                                | `document`                        |
 | INDEX_SCHEMA_PATH               | index schema path                         | (will use `app/schema.yaml`)      |
 | LLM_TEMPERATURE                 | temperature for LLM                       | `0`                               |

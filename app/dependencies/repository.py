@@ -3,17 +3,17 @@ from typing import Annotated
 from fastapi import Depends
 
 from app import config
+from app.dependencies.document_transformer import DocumentTransformerDep
 from app.dependencies.html_preprocessor import preprocess
 from app.dependencies.redis import RedisDep
-from app.dependencies.text_splitter import TextSplitterDep
 from app.models.document_model import DocumentModel
 from app.models.html_document_request import HTMLDocumentRequest
 
 
 class Repository:
-    def __init__(self, redis: RedisDep, text_splitter: TextSplitterDep):
+    def __init__(self, redis: RedisDep, document_transformer: DocumentTransformerDep):
         self.redis = redis
-        self.text_splitter = text_splitter
+        self.document_transformer = document_transformer
 
     def get_digest(self, source_id: str) -> str | None:
         digest = self.redis.client.get(f"{config.DIGEST_PREFIX}:{source_id}")
@@ -36,7 +36,7 @@ class Repository:
         )
 
     def preprocess_doc(self, doc: HTMLDocumentRequest) -> list[DocumentModel]:
-        return self.text_splitter.split_documents([preprocess(doc)])
+        return self.document_transformer.transform_documents([preprocess(doc)])
 
 
 RepositoryDep = Annotated[Repository, Depends(Repository)]
