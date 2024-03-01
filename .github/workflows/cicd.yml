@@ -10,12 +10,6 @@ env:
   GCLOUD_REGISTRY: us-west1-docker.pkg.dev
   GCLOUD_SERVICE: chat-search
   GITHUB_REGISTRY: ghcr.io
-  OPENAI_API_KEY_SECRET_NAME: OPENAI_API_KEY
-  OPENAI_API_KEY_SECRET_VERSION: latest
-  REDIS_URL_SECRET_NAME: REDIS_URL
-  REDIS_URL_SECRET_VERSION: latest
-  AUTH_TOKEN_SECRET_NAME: AUTH_TOKEN
-  AUTH_TOKEN_SECRET_VERSION: latest
 
 jobs:
   build:
@@ -71,6 +65,19 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment: demo
+    env:
+      AUTH_TOKEN_SECRET_NAME: AUTH_TOKEN
+      AUTH_TOKEN_SECRET_VERSION: latest
+      LANGCHAIN_API_KEY_SECRET_NAME: LANGCHAIN_API_KEY
+      LANGCHAIN_API_KEY_SECRET_VERSION: latest
+      LANGCHAIN_ENDPOINT: https://api.smith.langchain.com
+      LANGCHAIN_PROJECT: ${{ vars.LANGCHAIN_PROJECT }}
+      LANGCHAIN_TRACING_V2: "true"
+      OPENAI_API_KEY_SECRET_NAME: OPENAI_API_KEY
+      OPENAI_API_KEY_SECRET_VERSION: latest
+      REDIS_URL_SECRET_NAME: REDIS_URL
+      REDIS_URL_SECRET_VERSION: latest
     permissions:
       contents: read
     steps:

@@ -9,6 +9,7 @@ on:
 jobs:
   crawl:
     runs-on: ubuntu-latest
+    environment: demo
     container:
       image: ghcr.io/${{ github.repository }}:latest
       credentials:
@@ -16,7 +17,7 @@ jobs:
         password: ${{ secrets.github_token }}
       env:
         AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
-        INGEST_URL: ${{ secrets.INGEST_URL }}
+        INGEST_URL: ${{ vars.INGEST_URL }}
     defaults:
       run:
         working-directory: /code

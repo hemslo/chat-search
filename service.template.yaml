@@ -10,6 +10,20 @@ spec:
         ports:
         - containerPort: 8000
         env:
+        - name: AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: ${AUTH_TOKEN_SECRET_VERSION}
+              name: ${AUTH_TOKEN_SECRET_NAME}
+        - name: LANGCHAIN_TRACING_V2
+          value: "${LANGCHAIN_TRACING_V2}"
+        - name: LANGCHAIN_PROJECT
+          value: ${LANGCHAIN_PROJECT}
+        - name: LANGCHAIN_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: ${LANGCHAIN_API_KEY_SECRET_VERSION}
+              name: ${LANGCHAIN_API_KEY_SECRET_NAME}
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
@@ -20,8 +34,3 @@ spec:
             secretKeyRef:
               key: ${REDIS_URL_SECRET_VERSION}
               name: ${REDIS_URL_SECRET_NAME}
-        - name: AUTH_TOKEN
-          valueFrom:
-            secretKeyRef:
-              key: ${AUTH_TOKEN_SECRET_VERSION}
-              name: ${AUTH_TOKEN_SECRET_NAME}

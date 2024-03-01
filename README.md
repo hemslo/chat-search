@@ -27,6 +27,10 @@ Populate `.env` file with the required environment variables.
 | HEADERS_TO_SPLIT_ON             | html headers to split text                | `h1,h2,h3`                        |
 | INDEX_NAME                      | index name                                | `document`                        |
 | INDEX_SCHEMA_PATH               | index schema path                         | (will use `app/schema.yaml`)      |
+| LANGCHAIN_API_KEY               | langchain api key for langsmith           |                                   |
+| LANGCHAIN_ENDPOINT              | langchain endpoint for langsmith          | `https://api.smith.langchain.com` |
+| LANGCHAIN_PROJECT               | langchain project for langsmith           | `default`                         |
+| LANGCHAIN_TRACING_V2            | enable langchain tracing v2               | `true`                            |
 | LLM_TEMPERATURE                 | temperature for LLM                       | `0`                               |
 | OLLAMA_CHAT_MODEL               | ollama chat model                         | `gemma`                           |
 | OLLAMA_EMBEDDING_MODEL          | ollama embedding model                    | `nomic-embed-text`                |
