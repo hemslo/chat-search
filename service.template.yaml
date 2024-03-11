@@ -29,6 +29,19 @@ spec:
             secretKeyRef:
               key: ${OPENAI_API_KEY_SECRET_VERSION}
               name: ${OPENAI_API_KEY_SECRET_NAME}
+        - name: OTEL_EXPORTER_OTLP_PROTOCOL
+          value: ${OTEL_EXPORTER_OTLP_PROTOCOL}
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: ${OTEL_EXPORTER_OTLP_ENDPOINT}
+        - name: OTEL_EXPORTER_OTLP_HEADERS
+          valueFrom:
+            secretKeyRef:
+              key: ${OTEL_EXPORTER_OTLP_HEADERS_SECRET_VERSION}
+              name: ${OTEL_EXPORTER_OTLP_HEADERS_SECRET_NAME}
+        - name: OTEL_SERVICE_NAME
+          value: ${OTEL_SERVICE_NAME}
+        - name: OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED
+          value: "${OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED}"
         - name: REDIS_URL
           valueFrom:
             secretKeyRef:
