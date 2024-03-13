@@ -13,6 +13,7 @@ services:
       OTEL_EXPORTER_OTLP_TRACES_PROTOCOL: grpc
       OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: http://prometheus:9090/api/v1/otlp/v1/metrics
       OTEL_EXPORTER_OTLP_METRICS_PROTOCOL: http/protobuf
+      PYROSCOPE_SERVER_ADDRESS: http://pyroscope:4040
     ports:
       - "8000:8000"
     depends_on:

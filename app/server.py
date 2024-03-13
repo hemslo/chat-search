@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import pyroscope
 from fastapi import Depends
 from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
@@ -7,9 +8,17 @@ from fastapi.responses import JSONResponse
 from fastapi.responses import RedirectResponse
 from langserve import add_routes
 
+from app import config
 from app.chains.chat import chat_chain
 from app.dependencies.auth_token import verify_auth_token
 from app.routers import ingest
+
+pyroscope.configure(
+    application_name=config.SERVICE_NAME,
+    server_address=config.PYROSCOPE_SERVER_ADDRESS,
+    basic_auth_username=config.PYROSCOPE_BASIC_AUTH_USERNAME,
+    basic_auth_password=config.PYROSCOPE_BASIC_AUTH_PASSWORD,
+)
 
 app = FastAPI(
     title="Chat Search",

@@ -35,3 +35,8 @@ services:
     - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor traceQLStreaming metricsSummary
     ports:
     - "3000:3000"
+
+  pyroscope:
+    image: grafana/pyroscope
+    ports:
+      - '4040:4040'

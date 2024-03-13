@@ -42,6 +42,13 @@ RETRIEVER_SEARCH_KWARGS = (
         "lambda_mult": 0.5,
     }
 )
+SERVICE_NAME = os.environ.get("OTEL_SERVICE_NAME") or "chat-search"
+PYROSCOPE_SERVER_ADDRESS = (
+    os.environ.get("PYROSCOPE_SERVER_ADDRESS") or "http://localhost:4040"
+)
+PYROSCOPE_BASIC_AUTH_USERNAME = os.environ.get("PYROSCOPE_BASIC_AUTH_USERNAME") or ""
+PYROSCOPE_BASIC_AUTH_PASSWORD = os.environ.get("PYROSCOPE_BASIC_AUTH_PASSWORD") or ""
+
 HEADERS_TO_SPLIT_ON = {
     h.strip() for h in (os.environ.get("HEADERS_TO_SPLIT_ON") or "h1,h2,h3").split(",")
 } & {"h1", "h2", "h3", "h4", "h5", "h6"}
