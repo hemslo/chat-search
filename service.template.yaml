@@ -42,6 +42,18 @@ spec:
           value: ${OTEL_SERVICE_NAME}
         - name: OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED
           value: "${OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED}"
+        - name: PYROSCOPE_SERVER_ADDRESS
+          value: ${PYROSCOPE_SERVER_ADDRESS}
+        - name: PYROSCOPE_BASIC_AUTH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: ${PYROSCOPE_BASIC_AUTH_USERNAME_SECRET_VERSION}
+              name: ${PYROSCOPE_BASIC_AUTH_USERNAME_SECRET_NAME}
+        - name: PYROSCOPE_BASIC_AUTH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ${PYROSCOPE_BASIC_AUTH_PASSWORD_SECRET_VERSION}
+              name: ${PYROSCOPE_BASIC_AUTH_PASSWORD_SECRET_NAME}
         - name: REDIS_URL
           valueFrom:
             secretKeyRef:
