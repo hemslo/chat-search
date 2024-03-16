@@ -10,9 +10,9 @@ packages = [
 
 [tool.poetry.dependencies]
 beautifulsoup4 = "^4.12.3"
-langchain-community = "^0.0.24"
-langchain-openai = "^0.0.7"
-langserve = { extras = ["server"], version = "^0.0.43" }
+langchain-community = "^0.0.28"
+langchain-openai = "^0.0.8"
+langserve = { extras = ["server"], version = "^0.0.51" }
 lxml = "^5.1.0"
 opentelemetry-distro = { extras = ["oltp"], version = "^0.44b0" }
 opentelemetry-exporter-otlp = "^1.23.0"
@@ -43,7 +43,7 @@ uvicorn = "^0.23.2"
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = "^0.0.21"
-ruff = "^0.2.1"
+ruff = "^0.3.3"
 redisvl = "^0.0.7"
 
 [tool.poetry.scripts]
