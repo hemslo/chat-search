@@ -30,6 +30,8 @@ add_routes(
     app,
     chat_chain,
     path="/chat",
+    enable_feedback_endpoint=config.ENABLE_FEEDBACK_ENDPOINT,
+    enable_public_trace_link_endpoint=config.ENABLE_PUBLIC_TRACE_LINK_ENDPOINT,
     playground_type="chat",
 )
 
