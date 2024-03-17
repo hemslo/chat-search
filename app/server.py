@@ -30,6 +30,7 @@ add_routes(
     app,
     chat_chain,
     path="/chat",
+    playground_type="chat",
 )
 
 app.include_router(
