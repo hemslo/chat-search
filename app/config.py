@@ -77,11 +77,23 @@ RETRIEVAL_QA_CHAT_SYSTEM_PROMPT = (
 You are an assistant for question-answering tasks. \
 Use the following pieces of retrieved context to answer the question. \
 If you don't know the answer, just say that you don't know. \
-Use three sentences maximum and keep the answer concise.
+Use three sentences maximum and keep the answer concise. \
+Then provide the list of sources used to answer the question, \
+only include the title and url of the source. \
+If the source is not used, don't include it in the list. \
+Content between the following `context` html block is the retrieved context. \
+Each `iframe` html block is the source.
 
 <context>
 {context}
 </context>
+"""
+)
+
+DOCUMENT_PROMPT = (
+    os.getenv("DOCUMENT_PROMPT")
+    or """\
+  <iframe src="{source}" title="{title}">{page_content}</iframe>\
 """
 )
 

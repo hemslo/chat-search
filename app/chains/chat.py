@@ -79,9 +79,12 @@ def build_chat_chain() -> Runnable:
         ]
     )
 
+    document_prompt = PromptTemplate.from_template(config.DOCUMENT_PROMPT)
+
     combine_docs_chain = create_stuff_documents_chain(
         llm,
         retrieval_qa_chat_prompt,
+        document_prompt=document_prompt,
     )
 
     return (
