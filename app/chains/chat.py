@@ -49,6 +49,37 @@ async def _build_output(results: AsyncIterator[dict]) -> AsyncIterator[str]:
                 yield answer
 
 
+def _build_retrieval_qa_chat_prompt() -> ChatPromptTemplate:
+    if not config.MERGE_SYSTEM_PROMPT:
+        return ChatPromptTemplate.from_messages(
+            [
+                (
+                    "system",
+                    config.RETRIEVAL_QA_CHAT_SYSTEM_PROMPT,
+                ),
+                MessagesPlaceholder(variable_name="chat_history"),
+                (
+                    "human",
+                    "{input}",
+                ),
+            ]
+        )
+    return ChatPromptTemplate.from_messages(
+        [
+            MessagesPlaceholder(variable_name="chat_history"),
+            (
+                "human",
+                "\n".join(
+                    [
+                        config.RETRIEVAL_QA_CHAT_SYSTEM_PROMPT,
+                        "Question: {input}",
+                    ]
+                ),
+            ),
+        ]
+    )
+
+
 def build_chat_chain() -> Runnable:
     llm = get_llm()
 
@@ -65,19 +96,7 @@ def build_chat_chain() -> Runnable:
         rephrase_prompt,
     )
 
-    retrieval_qa_chat_prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                config.RETRIEVAL_QA_CHAT_SYSTEM_PROMPT,
-            ),
-            MessagesPlaceholder(variable_name="chat_history"),
-            (
-                "user",
-                "{input}",
-            ),
-        ]
-    )
+    retrieval_qa_chat_prompt = _build_retrieval_qa_chat_prompt()
 
     document_prompt = PromptTemplate.from_template(config.DOCUMENT_PROMPT)
 

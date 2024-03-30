@@ -33,6 +33,8 @@ OLLAMA_EMBEDDING_MODEL = os.getenv("OLLAMA_EMBEDDING_MODEL") or "nomic-embed-tex
 OLLAMA_URL = os.getenv("OLLAMA_URL") or "http://localhost:11434"
 OPENAI_CHAT_MODEL = os.getenv("OPENAI_CHAT_MODEL") or "gpt-3.5-turbo"
 OPENAI_EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-small"
+OPENAI_API_BASE = os.getenv("OPENAI_API_BASE") or None
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or "EMPTY"
 REDIS_URL = os.getenv("REDIS_URL") or "redis://localhost:6379/"
 RETRIEVER_SEARCH_TYPE = os.getenv("RETRIEVER_SEARCH_TYPE") or "mmr"
 RETRIEVER_SEARCH_KWARGS = (
@@ -79,7 +81,7 @@ Use the following pieces of retrieved context to answer the question. \
 If you don't know the answer, just say that you don't know. \
 Use three sentences maximum and keep the answer concise. \
 Then provide the list of sources used to answer the question, \
-only include the title and url of the source. \
+only include the title and url of the source in markdown format. \
 If the source is not used, don't include it in the list. \
 Content between the following `context` html block is the retrieved context. \
 Each `iframe` html block is the source.
@@ -89,6 +91,8 @@ Each `iframe` html block is the source.
 </context>
 """
 )
+
+MERGE_SYSTEM_PROMPT = os.getenv("MERGE_SYSTEM_PROMPT", "0") == "1"
 
 DOCUMENT_PROMPT = (
     os.getenv("DOCUMENT_PROMPT")

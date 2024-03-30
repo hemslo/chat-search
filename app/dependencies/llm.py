@@ -11,9 +11,11 @@ def _get_llm() -> BaseChatModel:
             return ChatOpenAI(
                 model=config.OPENAI_CHAT_MODEL,
                 temperature=config.LLM_TEMPERATURE,
+                openai_api_base=config.OPENAI_API_BASE,
+                openai_api_key=config.OPENAI_API_KEY,
             )
         case "ollama":
-            from langchain_community.chat_models import ChatOllama
+            from langchain_community.chat_models.ollama import ChatOllama
 
             return ChatOllama(
                 model=config.OLLAMA_CHAT_MODEL,
