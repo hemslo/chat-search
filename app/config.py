@@ -21,6 +21,17 @@ ENABLE_PUBLIC_TRACE_LINK_ENDPOINT = (
 )
 EMBEDDING_DIM = int(os.getenv("EMBEDDING_DIM") or 1536)
 EMBEDDING_PROVIDER = os.getenv("EMBEDDING_PROVIDER") or "openai"
+HUGGINGFACE_EMBEDDING_MODEL = (
+    os.getenv("HUGGINGFACE_EMBEDDING_MODEL") or "nomic-ai/nomic-embed-text-v1"
+)
+HUGGINGFACE_EMBEDDING_MODEL_KWARGS = (
+    json.loads(os.getenv("HUGGINGFACE_EMBEDDING_MODEL_KWARGS"))
+    if os.getenv("HUGGINGFACE_EMBEDDING_MODEL_KWARGS")
+    else {
+        "trust_remote_code": True,
+    }
+)
+
 INDEX_NAME = os.getenv("INDEX_NAME") or "document"
 INDEX_SCHEMA_PATH = (
     Path(os.getenv("INDEX_SCHEMA_PATH"))

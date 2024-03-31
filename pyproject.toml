@@ -10,6 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 beautifulsoup4 = "^4.12.3"
+einops = "^0.7.0"
 langchain-community = "^0.0.29"
 langchain-openai = "^0.1.1"
 langserve = { extras = ["server"], version = "^0.0.51" }
@@ -38,6 +39,7 @@ pyroscope-io = "^0.8.5"
 python = "^3.11"
 python-dotenv = "^1.0.0"
 redis = "^5.0.1"
+sentence-transformers = "^2.6.1"
 tqdm = "^4.66.2"
 uvicorn = "^0.23.2"
 
