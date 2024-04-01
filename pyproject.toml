@@ -10,11 +10,11 @@ packages = [
 
 [tool.poetry.dependencies]
 beautifulsoup4 = "^4.12.3"
-einops = "^0.7.0"
-langchain-community = "^0.0.29"
+huggingface-hub = "^0.22.2"
+langchain-community = "^0.0.30"
 langchain-openai = "^0.1.1"
 langserve = { extras = ["server"], version = "^0.0.51" }
-lxml = "^5.1.1"
+lxml = "^5.2.0"
 opentelemetry-distro = { extras = ["oltp"], version = "^0.45b0" }
 opentelemetry-exporter-otlp = "^1.24.0"
 opentelemetry-instrumentation = "^0.45b0"
@@ -39,7 +39,6 @@ pyroscope-io = "^0.8.5"
 python = "^3.11"
 python-dotenv = "^1.0.0"
 redis = "^5.0.1"
-sentence-transformers = "^2.6.1"
 tqdm = "^4.66.2"
 uvicorn = "^0.23.2"
 

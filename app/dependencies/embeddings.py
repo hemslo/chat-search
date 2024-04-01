@@ -19,13 +19,11 @@ def _get_embeddings() -> Embeddings:
                 base_url=config.OLLAMA_URL,
             )
         case "huggingface":
-            from langchain_community.embeddings.huggingface import HuggingFaceEmbeddings
-
-            return HuggingFaceEmbeddings(
-                model_name=config.HUGGINGFACE_EMBEDDING_MODEL,
-                model_kwargs=config.HUGGINGFACE_EMBEDDING_MODEL_KWARGS,
-                show_progress=config.VERBOSE,
+            from langchain_community.embeddings.huggingface_hub import (
+                HuggingFaceHubEmbeddings,
             )
+
+            return HuggingFaceHubEmbeddings(model=config.HUGGINGFACE_EMBEDDING_MODEL)
         case _:
             raise ValueError(f"Unknown embedding provider: {config.EMBEDDING_PROVIDER}")
 
