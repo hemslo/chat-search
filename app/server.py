@@ -4,8 +4,7 @@ from fastapi import Depends
 from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
-from fastapi.responses import RedirectResponse
+from fastapi.responses import JSONResponse, Response, RedirectResponse
 from langserve import add_routes
 
 from app import config
@@ -44,6 +43,11 @@ app.include_router(
 @app.get("/")
 async def redirect_root_to_docs():
     return RedirectResponse("/docs")
+
+
+@app.get("/health")
+async def health():
+    return Response(status_code=status.HTTP_200_OK)
 
 
 @app.exception_handler(RequestValidationError)

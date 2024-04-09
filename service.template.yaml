@@ -9,6 +9,14 @@ spec:
       - image: ${IMAGE}
         ports:
         - containerPort: 8000
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 8000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
         env:
         - name: AUTH_TOKEN
           valueFrom:
