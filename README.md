@@ -43,6 +43,12 @@ Populate `.env` file with the required environment variables.
 | OPENAI_API_KEY                    | openai api key                                                                      | `EMPTY`                           |
 | OPENAI_CHAT_MODEL                 | openai chat model                                                                   | `gpt-3.5-turbo`                   |
 | OPENAI_EMBEDDING_MODEL            | openai embedding model                                                              | `text-embedding-3-small`          |
+| OTEL_SDK_DISABLED                 | disable OpenTelemetry, `false` or `true`                                            | `false`                           |
+| OTEL_SERVICE_NAME                 | OpenTelemetry service name, also used for Pyroscope application name                | `chat-search`                     |
+| PYROSCOPE_BASIC_AUTH_PASSWORD     | Pyroscope basic auth password                                                       |                                   |
+| PYROSCOPE_BASIC_AUTH_USERNAME     | Pyroscope basic auth username                                                       |                                   |
+| PYROSCOPE_SERVER_ADDRESS          | Pyroscope server address                                                            | `http://localhost:4040`           |
+| PYROSCOPE_ENABLED                 | Enable Pyroscope or not, `1` or `0`                                                 | `1`                               |
 | REDIS_URL                         | redis url                                                                           | `redis://localhost:6379/`         |
 | REPHRASE_PROMPT                   | prompt for rephrase                                                                 | check [config.py](/app/config.py) |
 | RETRIEVAL_QA_CHAT_SYSTEM_PROMPT   | prompt for retrieval                                                                | check [config.py](/app/config.py) |

@@ -58,6 +58,7 @@ RETRIEVER_SEARCH_KWARGS = (
     }
 )
 SERVICE_NAME = os.getenv("OTEL_SERVICE_NAME") or "chat-search"
+PYROSCOPE_ENABLED = os.getenv("PYROSCOPE_ENABLED", "1") == "1"
 PYROSCOPE_SERVER_ADDRESS = (
     os.getenv("PYROSCOPE_SERVER_ADDRESS") or "http://localhost:4040"
 )
