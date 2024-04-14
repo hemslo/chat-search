@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from langchain.globals import set_debug, set_verbose
 
 load_dotenv()
+load_dotenv(Path(__file__).parent / "dotenv" / ".env")
 
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
 if AUTH_TOKEN is None:
