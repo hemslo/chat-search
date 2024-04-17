@@ -118,6 +118,16 @@ dotenv:
     OTEL_SDK_DISABLED: "true"
     PYROSCOPE_ENABLED: "0"
 
+crawl:
+  enabled: false
+  jobs:
+    - name: web
+      args:
+        - --sitemap-url
+        - https://hemslo.io/sitemap.xml
+      enabled: true
+      backoffLimit: 3
+
 redis-stack:
   enabled: false
 

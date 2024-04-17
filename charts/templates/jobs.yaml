@@ -1,0 +1,37 @@
+{{- if .Values.crawl.enabled -}}
+{{- range .Values.crawl.jobs }}
+{{- if .enabled -}}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .name }}
+  labels:
+    {{- include "chat-search.labels" $ | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          command: [ "python", "-m", "app.client.crawl" ]
+          args:
+            {{- .args | toYaml | nindent 12 }}
+          env:
+            - name: AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "chat-search.fullname" $ }}
+                  key: AUTH_TOKEN
+            - name: INGEST_URL
+              value: "http://{{ include "chat-search.fullname" $ }}:{{ $.Values.service.port }}/ingest"
+      restartPolicy: Never
+  backoffLimit: {{ .backoffLimit | default 3 }}
+{{- end }}
+{{- end }}
+{{- end }}
