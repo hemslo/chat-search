@@ -1,0 +1,23 @@
+apiVersion: skaffold/v4beta10
+kind: Config
+metadata:
+  name: chat-search
+build:
+  artifacts:
+    - image: chat-search
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  helm:
+    releases:
+      - name: chat-search
+        chartPath: charts
+        valuesFiles:
+          - values.yaml
+        version: 0.1.0
+        setValueTemplates:
+          image.repository: "{{.IMAGE_REPO_chat_search}}"
+          image.tag: "{{.IMAGE_TAG_chat_search}}@{{.IMAGE_DIGEST_chat_search}}"
+        setValues:
+          image.pullPolicy: "IfNotPresent"
+        wait: true
