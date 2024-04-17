@@ -1,0 +1,9 @@
+dependencies:
+- name: redis-stack
+  repository: https://redis-stack.github.io/helm-redis-stack/
+  version: 0.4.10
+- name: ollama
+  repository: https://otwld.github.io/ollama-helm/
+  version: 0.22.0
+digest: sha256:4bcb79602e562d5d3aab14caf5972e47613fb8b641ae20d3a0f07d71a407fd46
+generated: "2024-04-17T02:38:41.219556+10:00"

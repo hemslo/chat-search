@@ -1,5 +1,9 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python
-# Edit at https://www.toptal.com/developers/gitignore?templates=python
+# Created by https://www.toptal.com/developers/gitignore/api/python,helm
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,helm
+
+### Helm ###
+# Chart dependencies
+**/charts/*.tgz
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -173,4 +177,6 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-# End of https://www.toptal.com/developers/gitignore/api/python
+# End of https://www.toptal.com/developers/gitignore/api/python,helm
+
+/values.yaml

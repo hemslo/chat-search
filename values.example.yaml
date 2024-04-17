@@ -1,0 +1,24 @@
+dotenv:
+  secret:
+    AUTH_TOKEN: "token"
+    REDIS_URL: "redis://redis-stack:6379/"
+    OPENAI_API_KEY: "EMPTY"
+  config:
+    CHAT_PROVIDER: "openai"
+    EMBEDDING_PROVIDER: "openai"
+    LANGCHAIN_TRACING_V2: "false"
+    PYROSCOPE_ENABLED: "0"
+    OTEL_SDK_DISABLED: "true"
+
+redis-stack:
+  enabled: true
+
+ingress:
+  enabled: false
+
+ollama:
+  enabled: false
+  ollama:
+    models:
+      - nomic-embed-text
+      - gemma
