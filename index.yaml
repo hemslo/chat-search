@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  chat-search:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-04-20T06:54:39.142792091Z"
+    dependencies:
+    - condition: redis-stack.enabled
+      name: redis-stack
+      repository: https://redis-stack.github.io/helm-redis-stack/
+      version: 0.4.10
+    - condition: ollama.enabled
+      name: ollama
+      repository: https://otwld.github.io/ollama-helm/
+      version: 0.22.0
+    description: Chat Search
+    digest: a4d0c447e063c71b270521bd4c394325f87a75fb02d30c7d7b96656a8bfad56c
+    name: chat-search
+    type: application
+    urls:
+    - https://github.com/hemslo/chat-search/releases/download/chat-search-0.1.0/chat-search-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-04-20T06:54:39.14280248Z"
