@@ -1,6 +1,9 @@
 apiVersion: v2
 name: chat-search
-description: Chat Search
+description: |
+  Chat with documents, search via natural language.
+  chat-search supports hybrid language models to add chat capabilities to website.
+  RAG built with LangChain, Redis, various model providers (OpenAI, Ollama, vLLM, Huggingface).
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -32,3 +35,6 @@ dependencies:
     version: "0.22.0"
     repository: https://otwld.github.io/ollama-helm/
     condition: ollama.enabled
+
+annotations:
+  artifacthub.io/category: ai-machine-learning
