@@ -1,3 +1,5 @@
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/chat-search)](https://artifacthub.io/packages/search?repo=chat-search)
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.  Please refer to
