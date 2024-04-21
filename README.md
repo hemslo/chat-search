@@ -1,6 +1,7 @@
 # chat-search
 
 ![CICD](https://github.com/hemslo/chat-search/actions/workflows/cicd.yml/badge.svg)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/chat-search)](https://artifacthub.io/packages/search?repo=chat-search)
 
 Chat with documents, search via natural language.
 
