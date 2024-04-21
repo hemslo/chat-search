@@ -4,6 +4,9 @@
 
 Chat with documents, search via natural language.
 
+`chat-search` supports hybrid language models to add chat capabilities to website.
+RAG built with LangChain, Redis, various model providers (OpenAI, Ollama, vLLM, Huggingface).
+
 Demo: [Chat about my blog](https://hemslo.io/chat/)
 
 ## Usage
@@ -96,11 +99,48 @@ Visit http://localhost:8000/
 
 ### Run in Docker
 
+There is a `compose.yml` file for running the app and all dependencies in containers.
+Suitable for local end to end testing.
+
 ```shell
 docker compose up --build
 ```
 
 Visit http://localhost:8000/
+
+### Run in Kubernetes
+
+There is a `helm` chart for deploying the app in Kubernetes.
+
+#### Config Helm values
+
+#### Using Helm
+
+```shell
+cp values.example.yaml values.yaml
+```
+
+Then update `values.yaml` accordingly.
+
+Add helm repos:
+
+```shell
+helm repo add chat-search https://hemslo.github.io/chat-search/
+helm repo add redis-stack https://redis-stack.github.io/helm-redis-stack/
+helm repo add ollama-helm https://otwld.github.io/ollama-helm/
+```
+
+Install chat-search
+
+```shell
+helm install my-chat-search chat-search/chat-search -f values.yaml
+```
+
+#### Using Skaffold for local development
+
+```shell
+skaffold run --port-forward
+```
 
 ## Ingest data
 
