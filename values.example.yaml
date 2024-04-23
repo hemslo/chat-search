@@ -1,7 +1,7 @@
 dotenv:
   secret:
     AUTH_TOKEN: "token"
-    REDIS_URL: "redis://redis-stack:6379/"
+    REDIS_URL: "redis://redis-stack-server:6379/"
     OPENAI_API_KEY: "EMPTY"
   config:
     CHAT_PROVIDER: "openai"
@@ -20,7 +20,7 @@ crawl:
       enabled: true
       backoffLimit: 3
 
-redis-stack:
+redis-stack-server:
   enabled: true
 
 ingress:

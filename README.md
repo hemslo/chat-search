@@ -131,10 +131,10 @@ helm repo add redis-stack https://redis-stack.github.io/helm-redis-stack/
 helm repo add ollama-helm https://otwld.github.io/ollama-helm/
 ```
 
-Install chat-search
+Install/Upgrade chat-search
 
 ```shell
-helm install my-chat-search chat-search/chat-search -f values.yaml
+helm upgrade -i --wait my-chat-search chat-search/chat-search -f values.yaml
 ```
 
 #### Using Skaffold for local development
