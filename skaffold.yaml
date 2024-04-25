@@ -14,7 +14,7 @@ deploy:
         chartPath: charts/chat-search
         valuesFiles:
           - values.yaml
-        version: 0.1.2
+        version: 0.1.3
         setValueTemplates:
           image.repository: "{{.IMAGE_REPO_chat_search}}"
           image.tag: "{{.IMAGE_TAG_chat_search}}@{{.IMAGE_DIGEST_chat_search}}"

@@ -852,6 +852,17 @@ http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (==1.*)"]
 
 [[package]]
+name = "httpx-sse"
+version = "0.4.0"
+description = "Consume Server-Sent Event (SSE) messages with HTTPX."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "httpx-sse-0.4.0.tar.gz", hash = "sha256:1e81a3a3070ce322add1d3529ed42eb5f70817f45ed6ec915ab753f961139721"},
+    {file = "httpx_sse-0.4.0-py3-none-any.whl", hash = "sha256:f329af6eae57eaa2bdfd962b42524764af68075ea87370a2de920af5341e318f"},
+]
+
+[[package]]
 name = "huggingface-hub"
 version = "0.22.2"
 description = "Client library to download and publish models, datasets and other repos on the huggingface.co hub"
@@ -1095,25 +1106,27 @@ extended-testing = ["lxml (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langserve"
-version = "0.1.0"
+version = "0.0.51"
 description = ""
 optional = false
-python-versions = "<4.0.0,>=3.8.1"
+python-versions = ">=3.8.1,<4.0.0"
 files = [
-    {file = "langserve-0.1.0-py3-none-any.whl", hash = "sha256:fdeb863a0d434f08389a92fe79bcfd4b441a3dcd0ecee2ed750f6ef6b1cde8be"},
-    {file = "langserve-0.1.0.tar.gz", hash = "sha256:775dc538538defd86275100d5c951fed4ddced6ff9a77d449035a5e9eabeb7a9"},
+    {file = "langserve-0.0.51-py3-none-any.whl", hash = "sha256:e735eef2b6fde7e1514f4be8234b9f0727283e639822ca9c25e8ccc2d24e8492"},
+    {file = "langserve-0.0.51.tar.gz", hash = "sha256:036c0104c512bcc2c2406ae089ef9e7e718c32c39ebf6dcb2212f168c7d09816"},
 ]
 
 [package.dependencies]
 fastapi = {version = ">=0.90.1,<1", optional = true, markers = "extra == \"server\" or extra == \"all\""}
 httpx = ">=0.23.0"
-langchain-core = ">=0.1.0,<0.2.0"
+httpx-sse = {version = ">=0.3.1", optional = true, markers = "extra == \"client\" or extra == \"all\""}
+langchain = ">=0.0.333"
 orjson = ">=2"
 pydantic = ">=1"
 sse-starlette = {version = ">=1.3.0,<2.0.0", optional = true, markers = "extra == \"server\" or extra == \"all\""}
 
 [package.extras]
-all = ["fastapi (>=0.90.1,<1)", "sse-starlette (>=1.3.0,<2.0.0)"]
+all = ["fastapi (>=0.90.1,<1)", "httpx-sse (>=0.3.1)", "sse-starlette (>=1.3.0,<2.0.0)"]
+client = ["httpx-sse (>=0.3.1)"]
 server = ["fastapi (>=0.90.1,<1)", "sse-starlette (>=1.3.0,<2.0.0)"]
 
 [[package]]
@@ -1514,13 +1527,13 @@ files = [
 
 [[package]]
 name = "openai"
-version = "1.23.5"
+version = "1.23.6"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-1.23.5-py3-none-any.whl", hash = "sha256:af04da9821359c956d651ca10dcaad3d6d9fdae9dff79b8bd95ebfb57f2b6e91"},
-    {file = "openai-1.23.5.tar.gz", hash = "sha256:804bfb3d3e2d9582ef771129d0af27ae7a4da88bfb4f8031316bd662a81f6db4"},
+    {file = "openai-1.23.6-py3-none-any.whl", hash = "sha256:f406c76ba279d16b9aca5a89cee0d968488e39f671f4dc6f0d690ac3c6f6fca1"},
+    {file = "openai-1.23.6.tar.gz", hash = "sha256:612de2d54cf580920a1156273f84aada6b3dca26d048f62eb5364a4314d7f449"},
 ]
 
 [package.dependencies]
@@ -3081,4 +3094,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "12efef5dbd5d3597357aca300876d7df222c851b4027c140cc23e6ed87a657e0"
+content-hash = "18aa5399e133b0383badc5f0c2bf2384d2ec2106c788b0aa1ea03b38b516b519"
