@@ -72,7 +72,7 @@ async def ingest(
 ) -> dict[str, bool]:
     headers = {"Authorization": f"Bearer {auth_token}"}
     semaphore = asyncio.Semaphore(ingest_concurrency)
-    connector = TCPConnector(limit=ingest_concurrency)
+    connector = TCPConnector(limit=ingest_concurrency, ssl=False)
     async with ClientSession(connector=connector) as session:
         tasks = [
             asyncio.ensure_future(
@@ -103,6 +103,7 @@ def build_loader(
             parsing_function=parsing_function,
             requests_per_second=crawl_concurrency,
             default_parser="lxml",
+            verify_ssl=False,
         )
     return RecursiveUrlLoader(
         url=url,
