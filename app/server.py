@@ -8,6 +8,7 @@ from langserve import add_routes
 
 from app import config
 from app.chains.chat import chat_chain
+from app.chains.retriever import retriever
 from app.dependencies.auth_token import verify_auth_token
 from app.routers import ingest
 
@@ -34,6 +35,12 @@ add_routes(
     enable_feedback_endpoint=config.ENABLE_FEEDBACK_ENDPOINT,
     enable_public_trace_link_endpoint=config.ENABLE_PUBLIC_TRACE_LINK_ENDPOINT,
     playground_type="chat",
+)
+
+add_routes(
+    app,
+    retriever,
+    path="/retriever",
 )
 
 app.include_router(
