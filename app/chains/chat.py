@@ -18,8 +18,8 @@ from langchain_core.runnables import RunnableParallel, RunnableLambda, Runnable
 from pydantic import BaseModel
 
 from app import config
+from app.chains.retriever import build_hybrid_retriever_chain
 from app.dependencies.llm import get_llm
-from app.dependencies.redis import get_redis
 
 
 class InputChat(BaseModel):
@@ -83,16 +83,13 @@ def _build_retrieval_qa_chat_prompt() -> ChatPromptTemplate:
 def build_chat_chain() -> Runnable:
     llm = get_llm()
 
-    retriever = get_redis().as_retriever(
-        search_type=config.RETRIEVER_SEARCH_TYPE,
-        search_kwargs=config.RETRIEVER_SEARCH_KWARGS,
-    )
+    hybrid_retriever = build_hybrid_retriever_chain()
 
     rephrase_prompt = PromptTemplate.from_template(config.REPHRASE_PROMPT)
 
     retriever_chain = create_history_aware_retriever(
         llm,
-        retriever,
+        hybrid_retriever,
         rephrase_prompt,
     )
 

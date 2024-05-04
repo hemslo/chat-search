@@ -8,7 +8,7 @@ from langserve import add_routes
 
 from app import config
 from app.chains.chat import chat_chain
-from app.chains.retriever import retriever
+from app.chains.retriever import retriever_chain
 from app.dependencies.auth_token import verify_auth_token
 from app.routers import ingest
 
@@ -39,7 +39,7 @@ add_routes(
 
 add_routes(
     app,
-    retriever,
+    retriever_chain,
     path="/retriever",
 )
 
