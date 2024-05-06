@@ -8,6 +8,7 @@ from langchain.chains.query_constructor.ir import StructuredQuery
 from langchain.retrievers import EnsembleRetriever
 from langchain.retrievers.self_query.base import (
     QUERY_CONSTRUCTOR_RUN_NAME,
+    SelfQueryRetriever,
 )
 from langchain.retrievers.self_query.redis import RedisTranslator
 from langchain_core.documents import Document
@@ -67,7 +68,7 @@ def build_fulltext_retriever_chain() -> RetrieverLike:
         attribute_info=METADATA_FIELD_INFO,
         allowed_operators=structured_query_translator.allowed_operators,
         allowed_comparators=structured_query_translator.allowed_comparators,
-        examples=config.FULLTEXT_RETRIEVER_SELF_QUERY_EXAMPLES,
+        examples=config.RETRIEVER_SELF_QUERY_EXAMPLES,
     ).with_config(run_name=QUERY_CONSTRUCTOR_RUN_NAME)
 
     def build_fulltext_retriever(structured_query: StructuredQuery) -> RetrieverLike:
@@ -92,20 +93,34 @@ def build_fulltext_retriever_chain() -> RetrieverLike:
     )
 
 
-def build_hybrid_retriever_chain() -> RetrieverLike:
-    fulltext_retriever = build_fulltext_retriever_chain()
-
+def build_vectorstore_retriever_chain() -> RetrieverLike:
     redis = get_redis()
-    vectorstore_retriever = redis.as_retriever(
-        search_type=config.VECTORSTORE_RETRIEVER_SEARCH_TYPE,
-        search_kwargs=config.VECTORSTORE_RETRIEVER_SEARCH_KWARGS,
+    if not config.VECTORSTORE_RETRIEVER_SELF_QUERY:
+        return redis.as_retriever(
+            search_type=config.VECTORSTORE_RETRIEVER_SEARCH_TYPE,
+            search_kwargs=config.VECTORSTORE_RETRIEVER_SEARCH_KWARGS,
+        ).with_config(run_name="vectorstore_retriever")
+
+    return SelfQueryRetriever.from_llm(
+        llm=get_llm(),
+        vectorstore=redis,
+        document_contents=config.DOCUMENT_CONTENT_DESCRIPTION,
+        metadata_field_info=METADATA_FIELD_INFO,
+        use_original_query=True,
+        chain_kwargs={
+            "examples": config.RETRIEVER_SELF_QUERY_EXAMPLES,
+        },
+        verbose=config.VERBOSE,
     ).with_config(run_name="vectorstore_retriever")
 
+
+def build_hybrid_retriever_chain() -> RetrieverLike:
+    fulltext_retriever = build_fulltext_retriever_chain()
+    vectorstore_retriever = build_vectorstore_retriever_chain()
     ensemble_retriever = EnsembleRetriever(
         retrievers=[fulltext_retriever, vectorstore_retriever],
         weights=[config.FULLTEXT_RETRIEVER_WEIGHT, config.VECTORSTORE_RETRIEVER_WEIGHT],
     )
-
     return ensemble_retriever | RunnableLambda(top_k)
 
 
