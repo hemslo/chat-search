@@ -4,6 +4,29 @@ entries:
   - annotations:
       artifacthub.io/category: ai-machine-learning
     apiVersion: v2
+    appVersion: 0.1.4
+    created: "2024-05-06T14:56:11.332484274Z"
+    dependencies:
+    - condition: redis-stack-server.enabled
+      name: redis-stack-server
+      repository: https://redis-stack.github.io/helm-redis-stack/
+      version: 0.4.10
+    - condition: ollama.enabled
+      name: ollama
+      repository: https://otwld.github.io/ollama-helm/
+      version: 0.22.0
+    description: 'Chat with documents, search via natural language. chat-search supports
+      hybrid language models to add chat capabilities to website. RAG built with LangChain,
+      Redis, various model providers (OpenAI, Ollama, vLLM, Huggingface). '
+    digest: cf77f870d24d214b7e346d53cc9c0f764d9e46602ba1b0e418e8a8c016857f6c
+    name: chat-search
+    type: application
+    urls:
+    - https://github.com/hemslo/chat-search/releases/download/chat-search-0.1.4/chat-search-0.1.4.tgz
+    version: 0.1.4
+  - annotations:
+      artifacthub.io/category: ai-machine-learning
+    apiVersion: v2
     appVersion: 0.1.3
     created: "2024-04-25T12:02:46.926724542Z"
     dependencies:
@@ -89,4 +112,4 @@ entries:
     urls:
     - https://github.com/hemslo/chat-search/releases/download/chat-search-0.1.0/chat-search-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-25T12:02:46.926744058Z"
+generated: "2024-05-06T14:56:11.332524278Z"
