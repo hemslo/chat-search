@@ -136,4 +136,4 @@ ollama:
   ollama:
     models:
       - nomic-embed-text
-      - gemma
+      - llama3

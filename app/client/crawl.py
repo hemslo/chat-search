@@ -6,11 +6,11 @@ from collections.abc import Iterable
 from pprint import pprint
 from typing import Any
 
-from aiohttp import TCPConnector, ClientSession
+from aiohttp import ClientSession, TCPConnector
 from bs4 import BeautifulSoup
 from langchain_community.document_loaders import (
-    SitemapLoader,
     RecursiveUrlLoader,
+    SitemapLoader,
 )
 from langchain_community.document_loaders.base import BaseLoader
 from tqdm.asyncio import tqdm_asyncio

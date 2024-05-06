@@ -1,13 +1,14 @@
 from typing import List, Self
 
+from langchain_community.vectorstores.redis import Redis as RedisVectorStore
+from langchain_community.vectorstores.redis.filters import RedisFilterExpression
 from langchain_community.vectorstores.redis.schema import RedisModel
 from langchain_core.callbacks import CallbackManagerForRetrieverRun
 from langchain_core.documents import Document
 from langchain_core.retrievers import BaseRetriever
 from redis import Redis
-from langchain_community.vectorstores.redis import Redis as RedisVectorStore
-from redis.commands.search.query import Query
 from redis.commands.search.document import Document as RedisDocument
+from redis.commands.search.query import Query
 
 
 class RedisFulltextRetriever(BaseRetriever):
@@ -15,6 +16,7 @@ class RedisFulltextRetriever(BaseRetriever):
     schema_model: RedisModel
     index_name: str
     k: int = 4
+    filter: RedisFilterExpression | None = None
 
     def _build_document(self, doc: RedisDocument) -> Document:
         page_content = getattr(doc, self.schema_model.content_key)
@@ -36,17 +38,25 @@ class RedisFulltextRetriever(BaseRetriever):
         return_fields = self.schema_model.metadata_keys + [
             self.schema_model.content_key
         ]
-        return Query(query).return_fields(*return_fields).paging(0, self.k).dialect(2)
+        query_string = query if self.filter is None else f"({self.filter}) ({query})"
+        return (
+            Query(query_string)
+            .return_fields(*return_fields)
+            .paging(0, self.k)
+            .dialect(2)
+        )
 
     @classmethod
     def from_vectorstore(
         cls,
         vectorstore: RedisVectorStore,
         k: int = 4,
+        filter: RedisFilterExpression | None = None,
     ) -> Self:
         return cls(
             client=vectorstore.client,
             schema_model=vectorstore._schema,
             index_name=vectorstore.index_name,
             k=k,
+            filter=filter,
         )

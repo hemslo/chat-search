@@ -15,6 +15,7 @@ langchain = "^0.1.16"
 langchain-community = "^0.0.34"
 langchain-openai = "^0.1.3"
 langserve = { extras = ["server"], version = "^0.0.51" }
+lark = "^1.1.9"
 lxml = "^5.2.1"
 opentelemetry-distro = { extras = ["oltp"], version = "^0.45b0" }
 opentelemetry-exporter-otlp = "^1.24.0"
@@ -40,16 +41,19 @@ pyroscope-io = "^0.8.7"
 python = "^3.11"
 python-dotenv = "^1.0.0"
 redis = "^5.0.4"
-tqdm = "^4.66.2"
+tqdm = "^4.66.4"
 uvicorn = "^0.23.2"
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = "^0.0.21"
-ruff = "^0.4.1"
+ruff = "^0.4.3"
 redisvl = "^0.0.7"
 
 [tool.poetry.scripts]
 crawl = "app.client.crawl:main"
+
+[tool.ruff.lint]
+extend-select = ["I"]
 
 [build-system]
 requires = ["poetry-core"]

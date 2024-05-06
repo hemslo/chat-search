@@ -4,17 +4,17 @@ from typing import TypedDict
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains.history_aware_retriever import create_history_aware_retriever
 from langchain.chains.retrieval import create_retrieval_chain
+from langchain.prompts.prompt import PromptTemplate
 from langchain_core.messages import (
-    HumanMessage,
     AIMessage,
+    HumanMessage,
     SystemMessage,
 )
 from langchain_core.prompts import (
     ChatPromptTemplate,
     MessagesPlaceholder,
 )
-from langchain.prompts.prompt import PromptTemplate
-from langchain_core.runnables import RunnableParallel, RunnableLambda, Runnable
+from langchain_core.runnables import Runnable, RunnableLambda, RunnableParallel
 from pydantic import BaseModel
 
 from app import config

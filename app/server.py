@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-from fastapi import Depends
-from fastapi import FastAPI, Request, status
+from fastapi import Depends, FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse, Response, RedirectResponse
+from fastapi.responses import JSONResponse, RedirectResponse, Response
 from langserve import add_routes
 
 from app import config

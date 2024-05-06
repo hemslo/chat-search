@@ -4,14 +4,13 @@ from typing import Annotated, Any
 
 from fastapi import Depends
 from langchain.text_splitter import (
+    HTMLHeaderTextSplitter,
     RecursiveCharacterTextSplitter,
     TextSplitter,
-    HTMLHeaderTextSplitter,
 )
 from langchain_core.documents import BaseDocumentTransformer, Document
 
 from app import config
-
 
 HEADER_TO_TEXT = {
     "h1": "#",

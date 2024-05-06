@@ -40,7 +40,7 @@ INDEX_SCHEMA_PATH = (
     else Path(os.path.dirname(__file__)) / "schema.yaml"
 )
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE") or 0)
-OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL") or "gemma"
+OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL") or "llama3"
 OLLAMA_EMBEDDING_MODEL = os.getenv("OLLAMA_EMBEDDING_MODEL") or "nomic-embed-text"
 OLLAMA_URL = os.getenv("OLLAMA_URL") or "http://localhost:11434"
 OPENAI_CHAT_MODEL = os.getenv("OPENAI_CHAT_MODEL") or "gpt-3.5-turbo"
@@ -49,8 +49,33 @@ OPENAI_API_BASE = os.getenv("OPENAI_API_BASE") or None
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or "EMPTY"
 REDIS_URL = os.getenv("REDIS_URL") or "redis://localhost:6379/"
 RETRIEVER_SEARCH_K = int(os.getenv("RETRIEVER_SEARCH_K") or 4)
+DOCUMENT_CONTENT_DESCRIPTION = (
+    os.getenv("DOCUMENT_CONTENT_DESCRIPTION") or "Document content"
+)
 FULLTEXT_RETRIEVER_SEARCH_K = int(os.getenv("FULLTEXT_RETRIEVER_SEARCH_K") or 4)
 FULLTEXT_RETRIEVER_WEIGHT = float(os.getenv("FULLTEXT_RETRIEVER_WEIGHT") or 0.5)
+FULLTEXT_RETRIEVER_SELF_QUERY = os.getenv("FULLTEXT_RETRIEVER_SELF_QUERY", "1") == "1"
+FULLTEXT_RETRIEVER_SELF_QUERY_EXAMPLES = (
+    json.loads(os.getenv("FULLTEXT_RETRIEVER_SELF_QUERY_EXAMPLES"))
+    if os.getenv("FULLTEXT_RETRIEVER_SELF_QUERY_EXAMPLES")
+    else [
+        (
+            "How to chat search with documents?",
+            {
+                "query": "chat | search | documents",
+                "filter": "NO_FILTER",
+            },
+        ),
+        (
+            "How to chat search with documents? "
+            "Answer from document with title 'Chat Search with Documents' and language 'en'",
+            {
+                "query": "chat | search | documents",
+                "filter": 'and(eq("title", "Chat Search with Documents"), eq("language", "en"))',
+            },
+        ),
+    ]
+)
 VECTORSTORE_RETRIEVER_SEARCH_TYPE = os.getenv("RETRIEVER_SEARCH_TYPE") or "mmr"
 VECTORSTORE_RETRIEVER_SEARCH_KWARGS = (
     json.loads(os.getenv("RETRIEVER_SEARCH_KWARGS"))
