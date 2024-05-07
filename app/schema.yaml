@@ -14,13 +14,13 @@ text:
   no_index: false
   no_stem: false
   sortable: false
-  weight: 1.0
+  weight: 3.0
   withsuffixtrie: false
 - name: description
   no_index: false
   no_stem: false
   sortable: false
-  weight: 1.0
+  weight: 2.0
   withsuffixtrie: false
 - name: content
   no_index: false
