@@ -110,6 +110,8 @@ def build_vectorstore_retriever_chain() -> RetrieverLike:
         chain_kwargs={
             "examples": config.RETRIEVER_SELF_QUERY_EXAMPLES,
         },
+        search_type=config.VECTORSTORE_RETRIEVER_SEARCH_TYPE,
+        search_kwargs=config.VECTORSTORE_RETRIEVER_SEARCH_KWARGS,
         verbose=config.VERBOSE,
     ).with_config(run_name="vectorstore_retriever")
 
