@@ -8,6 +8,7 @@ from app.dependencies.html_preprocessor import preprocess
 from app.dependencies.redis import RedisDep
 from app.models.document_model import DocumentModel
 from app.models.html_document_request import HTMLDocumentRequest
+from app.models.raw_document_request import RawDocumentRequest
 
 
 class Repository:
@@ -19,7 +20,7 @@ class Repository:
         digest = self.redis.client.get(f"{config.DIGEST_PREFIX}:{source_id}")
         return digest.decode() if digest else None
 
-    def save(self, doc: HTMLDocumentRequest) -> None:
+    def save(self, doc: HTMLDocumentRequest | RawDocumentRequest) -> None:
         docs = self.preprocess_doc(doc)
         existing_keys = self.redis.client.keys(
             f"{self.redis.key_prefix}:{doc.source_id}:*"
@@ -42,8 +43,24 @@ class Repository:
             self.redis.client.delete(*digest_keys)
         self.redis._create_index_if_not_exist(config.EMBEDDING_DIM)
 
-    def preprocess_doc(self, doc: HTMLDocumentRequest) -> list[DocumentModel]:
-        return self.document_transformer.transform_documents([preprocess(doc)])
+    @staticmethod
+    def _preprocess(
+        doc: HTMLDocumentRequest | RawDocumentRequest,
+    ) -> DocumentModel:
+        match doc:
+            case HTMLDocumentRequest():
+                return preprocess(doc)
+            case RawDocumentRequest():
+                return DocumentModel(
+                    metadata=doc.metadata,
+                    page_content=doc.page_content,
+                )
+
+    def preprocess_doc(
+        self,
+        doc: HTMLDocumentRequest | RawDocumentRequest,
+    ) -> list[DocumentModel]:
+        return self.document_transformer.transform_documents([self._preprocess(doc)])
 
 
 RepositoryDep = Annotated[Repository, Depends(Repository)]

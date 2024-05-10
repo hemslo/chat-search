@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 
-from app.models.document_model import DocumentMetadataModel, DocumentModel
+from app.models.document_metadata_model import DocumentMetadataModel
+from app.models.document_model import DocumentModel
 from app.models.html_document_request import HTMLDocumentRequest
 
 

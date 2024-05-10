@@ -2,13 +2,14 @@ from fastapi import APIRouter, Response, status
 
 from ..dependencies.repository import RepositoryDep
 from ..models.html_document_request import HTMLDocumentRequest
+from ..models.raw_document_request import RawDocumentRequest
 
 router = APIRouter()
 
 
 @router.post("/ingest", description="Ingest a document", status_code=201)
 def ingest_doc(
-    doc: HTMLDocumentRequest,
+    doc: HTMLDocumentRequest | RawDocumentRequest,
     response: Response,
     repository: RepositoryDep,
 ) -> str:

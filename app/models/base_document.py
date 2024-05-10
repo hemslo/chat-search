@@ -1,10 +1,9 @@
 import hashlib
 from functools import cached_property
 from typing import TypedDict
-from urllib.parse import urlparse, urlunparse
 
 from langchain_core.documents import Document
-from pydantic import Field, validator
+from pydantic import Field
 
 
 def sha256(content: str) -> str:
@@ -25,25 +24,6 @@ class BaseDocument(Document):
     @cached_property
     def page_content_digest(self):
         return sha256(self.page_content)
-
-    @validator("metadata", pre=True)
-    def validate_metadata(cls, metadata):
-        metadata["source"] = cls._normalize_url(metadata["source"])
-        return metadata
-
-    @staticmethod
-    def _normalize_url(url) -> str:
-        parsed_url = urlparse(url)
-        return urlunparse(
-            (
-                parsed_url.scheme,
-                parsed_url.netloc,
-                parsed_url.path,
-                parsed_url.params,
-                parsed_url.query,
-                "",
-            )
-        )
 
     class Config:
         keep_untouched = (cached_property,)
