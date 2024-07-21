@@ -49,7 +49,7 @@ Populate `.env` file with the required environment variables.
 | OLLAMA_URL                          | ollama url                                                                          | `http://localhost:11434`          |
 | OPENAI_API_BASE                     | openai compatible api base url                                                      | `https://api.openai.com/v1`       |
 | OPENAI_API_KEY                      | openai api key                                                                      | `EMPTY`                           |
-| OPENAI_CHAT_MODEL                   | openai chat model                                                                   | `gpt-3.5-turbo`                   |
+| OPENAI_CHAT_MODEL                   | openai chat model                                                                   | `gpt-4o-mini`                     |
 | OPENAI_EMBEDDING_MODEL              | openai embedding model                                                              | `text-embedding-3-small`          |
 | OTEL_SDK_DISABLED                   | disable OpenTelemetry, `false` or `true`                                            | `false`                           |
 | OTEL_SERVICE_NAME                   | OpenTelemetry service name, also used for Pyroscope application name                | `chat-search`                     |
