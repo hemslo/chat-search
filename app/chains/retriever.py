@@ -10,7 +10,7 @@ from langchain.retrievers.self_query.base import (
     QUERY_CONSTRUCTOR_RUN_NAME,
     SelfQueryRetriever,
 )
-from langchain.retrievers.self_query.redis import RedisTranslator
+from langchain_community.query_constructors.redis import RedisTranslator
 from langchain_core.documents import Document
 from langchain_core.retrievers import RetrieverLike
 from langchain_core.runnables import (

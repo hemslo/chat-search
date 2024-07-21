@@ -12,7 +12,7 @@ from langchain_community.document_loaders import (
     RecursiveUrlLoader,
     SitemapLoader,
 )
-from langchain_community.document_loaders.base import BaseLoader
+from langchain_core.document_loaders import BaseLoader
 from tqdm.asyncio import tqdm_asyncio
 
 from app.models.base_document import BaseDocumentMetadata

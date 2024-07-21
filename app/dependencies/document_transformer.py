@@ -3,12 +3,12 @@ from itertools import chain
 from typing import Annotated, Any
 
 from fastapi import Depends
-from langchain.text_splitter import (
+from langchain_core.documents import BaseDocumentTransformer, Document
+from langchain_text_splitters import (
     HTMLHeaderTextSplitter,
     RecursiveCharacterTextSplitter,
     TextSplitter,
 )
-from langchain_core.documents import BaseDocumentTransformer, Document
 
 from app import config
 
